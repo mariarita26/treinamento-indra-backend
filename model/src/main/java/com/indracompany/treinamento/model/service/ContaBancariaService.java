@@ -57,6 +57,7 @@ public class ContaBancariaService extends GenericCrudService<ContaBancaria, Long
 		return listaRetornoDTO;
 	}
 	
+	@Transactional
 	public void depositar(DepositoDTO dto) {
 		ContaBancaria contaBancaria = this.carregarConta(dto.getAgencia(), dto.getNumeroConta());
 		contaBancaria.setSaldo(contaBancaria.getSaldo() + dto.getValor());
@@ -70,6 +71,7 @@ public class ContaBancariaService extends GenericCrudService<ContaBancaria, Long
 		extratoBancarioService.salvar(extrato);
 	}
 	
+	@Transactional
 	public void sacar(SaqueDTO dto) {
 		ContaBancaria contaBancaria = this.carregarConta(dto.getAgencia(), dto.getNumeroConta());
 		if (contaBancaria.getSaldo() < dto.getValor()) {

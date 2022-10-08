@@ -2,6 +2,7 @@ package com.indracompany.treinamento.model.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,17 +20,18 @@ public class ExtratoBancarioService extends GenericCrudService<ExtratoBancario, 
 	@Autowired
 	private ExtratoBancarioRepository extratoBancarioRepository;
 	
-	public List<ExtratoBancario> buscarExtratoPorData(LocalDate dataInicial, LocalDate dataFinal) {
+	public List<ExtratoBancario> buscarExtratoPorData(LocalDate dataInicial, LocalDate dataFinal, String agencia, String nrConta) {
 
 		
 		if (dataInicial == null || dataFinal == null) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_Data_INVALIDA);
 		}
 
-		if (dataFinal.isBefore(dataInicial) || dataInicial.isBefore(dataFinal)) {
+		if (dataFinal.isBefore(dataInicial) || dataInicial.isAfter(dataFinal)) { //ERRO_CAMPO_OBRIGATORIO
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_Data_INVALIDA);
 		}
-		List<ExtratoBancario> extrato = extratoBancarioRepository.findByExtratoPorFiltro(dataInicial, dataFinal);
+		
+		List<ExtratoBancario> extrato = extratoBancarioRepository.findByExtratoPorFiltro(dataInicial, dataFinal, agencia, nrConta);
 	
 		
 		return extrato;

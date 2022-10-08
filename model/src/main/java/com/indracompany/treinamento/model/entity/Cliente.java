@@ -1,10 +1,14 @@
 package com.indracompany.treinamento.model.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
@@ -12,14 +16,13 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "clientes")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Cliente extends GenericEntity<Long>{
+	private static final long serialVersionUID = 2955934673205574114L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,8 +41,8 @@ public class Cliente extends GenericEntity<Long>{
 	private boolean ativo;
 	
 	private String observacoes;
-
 	
-
+	//@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	//private List<ContaBancaria> contaBancaria;
 	
 }
