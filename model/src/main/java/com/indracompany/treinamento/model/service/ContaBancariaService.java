@@ -119,4 +119,10 @@ public class ContaBancariaService extends GenericCrudService<ContaBancaria, Long
 		
 		return conta;
 	}
+	
+	public void addConta(ContaBancaria conta) {
+		contaBancariaRepository.save(conta);
+	}
+	
+	
 }
